@@ -1,2 +1,16 @@
 # Spam Email Classification App
-This portfolio repository is created on 22 Nov 2024.
+Email spam detection system is used to detect email spam using Machine Learning technique called Natural Language Processing and Python, where we have a dataset contain a lot of emails by extract important words and then use naive classifier we can detect if this email is spam or not.
+
+
+## Prerequisites
+This is list of required packages and modules for the project to be installed :
+
+Python 3.x
+Pandas
+Numpy
+Scikit-learn
+NLTK
+Install all required packages :
+
+ pip install -r requirements.txt
+
