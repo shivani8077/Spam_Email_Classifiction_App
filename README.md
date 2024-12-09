@@ -14,9 +14,5 @@ NLTK<br>
 Install all required packages :<br>
  pip install -r requirements.txt
 
- ## Setup
- Clone this repository:
-git clone  
-cd News_prediction
 
 
