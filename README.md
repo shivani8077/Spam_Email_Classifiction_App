@@ -3,14 +3,14 @@ Email spam detection system is used to detect email spam using Machine Learning 
 
 
 ## Prerequisites
-This is list of required packages and modules for the project to be installed :
+This is list of required packages and modules for the project to be installed :<br>
 
-Python 3.x
-Pandas
-Numpy
-Scikit-learn
-NLTK
-Install all required packages :
+Python 3.x<br>
+Pandas<br>
+Numpy<br>
+Scikit-learn<br>
+NLTK<br>
+Install all required packages :<br>
 
  pip install -r requirements.txt
 
