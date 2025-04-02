@@ -40,8 +40,12 @@ model_path = os.path.join(base_dir, 'model.pkl')
 
 def load_pickle(file_path):
     if os.path.exists(file_path):
-        with open(file_path, 'rb') as f:
-            return pickle.load(f)
+        try:
+            with open(file_path, 'rb') as f:
+                return pickle.load(f)
+        except Exception as e:
+            st.error(f"Error loading pickle file: {e}")
+            return None
     else:
         st.error(f"Error: {file_path} not found. Please check the file path.")
         return None
