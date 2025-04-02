@@ -1,4 +1,4 @@
-python 3.x
+python
 pandas
 numpy
 nltk
