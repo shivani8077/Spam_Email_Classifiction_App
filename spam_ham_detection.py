@@ -1,5 +1,6 @@
 import streamlit as st
 import pickle
+import os
 
 # Custom CSS for background, text, and button
 def customize_ui(background_color, text_color, button_color, button_text_color):
@@ -45,7 +46,9 @@ button_text_color = "#FFFFFF" # White button text
 customize_ui(background_color, text_color, button_color, button_text_color)
 
 # load the model and vector files
-tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
+vectorizer_path = os.path.join(os.path.dirname(__file__), 'vectorizer.pkl')
+tfidf = pickle.load(open(vectorizer_path, 'rb'))
+# tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
 model = pickle.load(open('model.pkl', 'rb'))
 
 def main():
