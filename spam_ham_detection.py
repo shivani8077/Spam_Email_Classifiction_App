@@ -7,17 +7,8 @@ def customize_ui(background_color, text_color, button_color, button_text_color):
     st.markdown(
         f"""
         <style>
-        /* Background color */
-        .stApp {{
-            background-color: {background_color};
-        }}
-
-        /* Text color */
-        div, h1, h2, h3, h4, h5, h6, p {{
-            color: {text_color};
-        }}
-
-        /* Button styling */
+        .stApp {{ background-color: {background_color}; }}
+        div, h1, h2, h3, h4, h5, h6, p {{ color: {text_color}; }}
         div.stButton > button {{
             background-color: {button_color};
             color: {button_text_color};
@@ -27,11 +18,7 @@ def customize_ui(background_color, text_color, button_color, button_text_color):
             font-size: 16px;
             cursor: pointer;
         }}
-
-        /* Button hover effect */
-        div.stButton > button:hover {{
-            background-color: #555555;
-        }}
+        div.stButton > button:hover {{ background-color: #555555; }}
         </style>
         """,
         unsafe_allow_html=True
@@ -45,33 +32,50 @@ button_text_color = "#FFFFFF" # White button text
 
 customize_ui(background_color, text_color, button_color, button_text_color)
 
-# load the model and vector files
-vectorizer_path = os.path.join(os.path.dirname(__file__), 'vectorizer.pkl')
-tfidf = pickle.load(open(vectorizer_path, 'rb'))
-# tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
-model = pickle.load(open('model.pkl', 'rb'))
+# Load model and vectorizer
+# Change base_dir to current working directory for compatibility with Streamlit Cloud
+base_dir = os.getcwd()  # Use current working directory
+vectorizer_path = os.path.join(base_dir, 'vectorizer.pkl')
+model_path = os.path.join(base_dir, 'model.pkl')
+
+def load_pickle(file_path):
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as f:
+            return pickle.load(f)
+    else:
+        st.error(f"Error: {file_path} not found. Please check the file path.")
+        return None
+
+# Load the vectorizer and model
+tfidf = load_pickle(vectorizer_path)
+model = load_pickle(model_path)
 
 def main():
     st.title("Email Spam Classification Application")
     st.write("This is a Machine Learning application to classify emails as spam or ham.")
     st.subheader("Classification")
-    # input text
-    user_input=st.text_area("Enter an email to classify" ,height=150)
-	
+    
+    # User input for email to classify
+    user_input = st.text_area("Enter an email to classify", height=150)
+    
     if st.button('Classify'):
         if user_input:
-            # preprocess
-            transformed_email =[user_input]
-            # vectorize
-            vec_input = tfidf.transform(transformed_email)
-            # predict
-            result = model.predict(vec_input)
-            # display
-            if result[0]==0:
-                st.success("This is not Spam Email (Ham Email)")
+            if tfidf and model:
+                # Preprocess input and classify
+                transformed_email = [user_input]
+                vec_input = tfidf.transform(transformed_email)
+                result = model.predict(vec_input)
+                
+                # Display result
+                if result[0] == 0:
+                    st.success("This is not a Spam Email (Ham Email)")
+                else:
+                    st.error("This is a Spam Email")
             else:
-                st.error("This is A Spam Email")
+                st.error("Model or Vectorizer not loaded correctly.")
         else:
-            st.write("Please Enter an Email to classify.")
+            st.warning("Please enter an email to classify.")
 
-main()
+# Run the app
+if __name__ == "__main__":
+    main()
