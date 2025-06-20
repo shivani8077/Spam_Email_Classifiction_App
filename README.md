@@ -10,6 +10,7 @@ Pandas<br>
 Numpy<br>
 Scikit-learn<br>
 NLTK<br>
+sklearn<br>
 
 Install all required packages :<br>
  pip install -r requirements.txt
