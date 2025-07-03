@@ -2,6 +2,7 @@ python
 pandas
 numpy
 nltk
-scikit-learn
+scikit-learn==1.3.0
+joblib==1.3.2
 streamlit
-sklearn
+sklearn 
